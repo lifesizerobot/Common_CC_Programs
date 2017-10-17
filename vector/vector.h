@@ -11,8 +11,8 @@ class vector {
 public:
 	vector() : _element{ nullptr }, _size{ 0 } {}
 	vector(std::size_t size);
-	vector(vector &&vec);
 	vector(const vector &vec);
+	vector(const vector &&vec);
 
 	~vector();
 
@@ -20,6 +20,7 @@ public:
 
 	inline T& operator[](std::size_t i) { return _element[i]; }
 
+	vector& operator=(vector vec);
 
 };
 
@@ -50,6 +51,14 @@ vector<T>::vector(const vector &vec)
 		_element[i] = vec._element[i];
 }
 
+template<typename T>
+vector& vector<T>::operator=(vector vec)
+{
+	std::swap(_elements, temp._elements);
+	std::swap(_size, temp._size);
+
+	return *this;
+}
 
 template<typename T>
 vector<T>::~vector()
