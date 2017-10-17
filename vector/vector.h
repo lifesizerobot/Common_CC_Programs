@@ -19,8 +19,13 @@ public:
 	inline std::size_t size() const { return _size; }
 
 	inline T& operator[](std::size_t i) { return _element[i]; }
-
-	vector& operator=(vector vec);
+    
+    // Note: makes a copy of the vector "vec"
+	vector& operator=(vector vec)
+    {
+        std::swap(_element, vec._element);
+        std::swap(_size, vec._size);
+    }
 
 };
 
@@ -51,14 +56,7 @@ vector<T>::vector(const vector &vec)
 		_element[i] = vec._element[i];
 }
 
-template<typename T>
-vector& vector<T>::operator=(vector vec)
-{
-	std::swap(_elements, temp._elements);
-	std::swap(_size, temp._size);
 
-	return *this;
-}
 
 template<typename T>
 vector<T>::~vector()
@@ -69,7 +67,5 @@ vector<T>::~vector()
 		_element = nullptr;
 	}
 }
-
-
 
 #endif
